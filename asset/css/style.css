@@ -148,7 +148,7 @@ html {
     top: 200px;
     width: 80%;
     overflow: scroll;
-    height: 600px;
+    height: 500px;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
@@ -191,14 +191,17 @@ html {
 }
 
 .play-list-item__name {
-    color: rgb(165, 161, 161);
-    font-size: 2.4rem;
-    padding: 0px 0 10px;
+    font-family: 'Itim', cursive;
+    color: #fff;
+    font-size: 2.7rem;
+    font-weight: 800;
+    padding: 0px 0 5px;
 }
 
 .play-list-item__artist {
-    color: #fff;
-    font-size: 1.3rem;
+    font-family: 'Itim', cursive;
+    color: rgb(165, 161, 161);
+    font-size: 1.6rem;
 }
 
 .bx-heart {
