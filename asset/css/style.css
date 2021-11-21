@@ -1,0 +1,245 @@
+html {
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-size: 62.5%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+* {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+}
+
+.body {
+    margin: 0;
+    padding: 0;
+}
+
+.wide {
+    display: flex;
+    
+    background-position:center;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;   
+    background-attachment: center;
+}
+
+.child {
+    margin: 0 auto;
+    width: 600px;
+    height: 100vh;
+    position: relative;
+}
+
+.downbar {
+    min-width: 100%;
+    height: 180px;
+    /* background-color: #9EE5FF;
+     */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.644), rgba(0, 0, 0, 0.582));
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top-right-radius: 35px; 
+    border-top-left-radius: 35px; 
+    transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.downbar.active {
+    height: 80%;
+}
+
+.nav {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+}
+.nav__title {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.nav__title-name {
+    font-family: 'Itim', cursive;
+    font-weight: 800;
+    font-size: 2.6rem;
+    color: #fff;
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.nav__title-artist {
+    font-family: 'Itim', cursive;
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 10px 0 20px;
+}
+
+.nav__control {
+    width: 80%;
+    height: 13px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.nav__control i {
+    color: #fff;
+    font-size: 3rem;
+}
+
+.progress {
+    width: 80%;
+    height: 5px;
+    background-color: rgb(190, 186, 186);
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: #62f1d2;
+}
+
+.progress-circle {
+    width: 12px;
+    height: 5px;
+    background-color: #575756;
+    position: relative;
+    left: 0px;
+    bottom: 5px;
+    position: relative;
+    display: none;
+}
+
+.dragging {
+    display: block;
+}
+
+.time {
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.play-list-container {
+    position: absolute;
+    top: 200px;
+    width: 80%;
+    overflow: scroll;
+    height: 600px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.play-list-container::-webkit-scrollbar {
+    display: none;
+}
+
+.play-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.play-list-item {
+    height: 60px;
+    padding: 20px 0;
+    border-bottom: 1px solid #fff;
+    display: flex;
+    align-items: center;
+}
+
+.play-list-item:last-child {
+    border: none;
+}
+
+.box-img {
+    height: 60px;
+    width: 60px;
+    background-attachment: center;
+    background-size: contain;
+    border-radius: 50%;
+}
+
+.play-list-box__title {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    flex: 1;
+}
+
+.play-list-item__name {
+    color: rgb(165, 161, 161);
+    font-size: 2.4rem;
+    padding: 0px 0 10px;
+}
+
+.play-list-item__artist {
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.bx-heart {
+    color: pink;
+    font-size: 3rem;
+    margin-right: 15px;
+}
+
+.bx-dots-horizontal-rounded {
+    color: rgb(161, 153, 153);
+    font-size: 3rem;
+}
+
+.bx-repeat.active,
+.bx-shuffle.active {
+    color: pink !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 768px) and (max-width: 1919px) {
+    
+}
+
+@media screen and (max-width: 768px) {
+    .wide {
+        background-size: cover;
+    }
+
+}
+
+.hide {
+    display: none !important;
+}

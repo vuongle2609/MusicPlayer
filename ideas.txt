@@ -1,0 +1,9 @@
+làm một cái list dính vào đáy trang (fixed) (overflow hidden)
+kích thước thay đổi tùy vào hành động (full/10%)
+
+10%: hiện thanh tua, nav
+full size: hiện list , thanh tua
+
+list non active -> hidden
+
+swipe up -> active -> 
