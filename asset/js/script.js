@@ -40,6 +40,7 @@ const app = {
     isMuted: false,
     onVol: 2,
     volIsDrag: false,
+    currentVol: audio.volume,
     songs: [{
             name: 'Cơn gió mùa hạ',
             singer: 'Superluckyqi',
@@ -157,9 +158,11 @@ const app = {
         menu.onclick = function () {
             if (this.listshow) {
                 control.classList.remove('active')
+                menu.classList.remove('active')
                 this.listshow = false
             } else {
                 control.classList.add('active')
+                menu.classList.add('active')
                 this.listshow = true
             }
         }
@@ -277,7 +280,7 @@ const app = {
             circle.classList.remove('dragging');
         })
 
-        // bam mui ten
+        // bam mui ten tua
         document.addEventListener('keydown', event => {
             if (event.code === 'ArrowRight') {
                 audio.currentTime += 5
@@ -327,24 +330,53 @@ const app = {
             setTimeout(() => {
                 playBtn.click()
                 setTimeout(() => audio.pause(), 100)
-            }, 500)
+            }, 1000)
         }
+
+        // mute phim m
+        document.addEventListener('keydown', event => {
+            if (event.code === 'KeyM') {
+                if (this.isMuted) {
+                    audio.volume = this.currentVol
+                    this.isMuted = false
+                } else {
+                    this.currentVol = audio.volume
+                    audio.volume = 0
+                    this.isMuted = true
+                }
+            }
+        })
+
+        // phim r
+        document.addEventListener('keydown', event => {
+            if (event.code === 'KeyR') {
+                repeatBtn.click()
+            }
+        })
+
+        //phim s
+        document.addEventListener('keydown', event => {
+            if (event.code === 'KeyS') {
+                shuffleBtn.click()
+            }
+        })
+
+        // chinh am thanh phim mui ten
+        document.addEventListener('keydown', event => {
+            if (event.code === 'ArrowUp') {
+                audio.volume += 0.1
+            }
+        })
+
+        document.addEventListener('keydown', event => {
+            if (event.code === 'ArrowDown') {
+                audio.volume -= 0.1
+            }
+        })
 
         // handle volume change
         audio.onvolumechange = () => {
-            const volumePercent = Math.floor(audio.volume * 100)
-            if (volumePercent <= 30 && volumePercent > 0) {
-                this.onVol = 0
-                this.volchange0()
-            } else if (volumePercent > 30 && volumePercent < 80) {
-                this.onVol = 1
-                this.volchange1()
-            } else if (volumePercent === 0) {
-                this.volmute()
-            } else {
-                this.onVol = 2
-                this.volchange2()
-            }
+            this.volumeChangeHandle()
         }
 
         // hover 
@@ -370,15 +402,7 @@ const app = {
         })
 
         document.addEventListener("mousemove", (e) => {
-            const max = volProgress.getBoundingClientRect().top + volProgress.offsetHeight
-            let numberprogressvol1 = e.clientY - volProgress.getBoundingClientRect().top
-            let numberprogressvol2 = volProgress.offsetHeight - numberprogressvol1
-            if (this.volIsDrag && numberprogressvol2 >= 0 && numberprogressvol2 < max) {
-                const heightprogress = volProgress.offsetHeight;
-                percentprogress = Math.floor(numberprogressvol2 / heightprogress * 100)
-                volProgressBar.style.height = percentprogress + "%";
-                audio.volume = percentprogress / 100;
-            }
+            this.volumeHandle(e)
         })
 
         document.addEventListener('mouseup', (e) => {
@@ -386,6 +410,8 @@ const app = {
             volDot.classList.remove('dragging');
         })
     },
+
+
     getCurrentTime: function (seconds) {
         const format = val => `0${Math.floor(val)}`.slice(-2)
         const minutes = (seconds % 3600) / 60
@@ -465,6 +491,35 @@ const app = {
         vol1.classList.add('hide')
         vol0.classList.add('hide')
         mute.classList.remove('hide')
+    },
+
+    volumeHandle: function (e) {
+        const max = volProgress.getBoundingClientRect().top + volProgress.offsetHeight
+        let numberprogressvol1 = e.clientY - volProgress.getBoundingClientRect().top
+        let numberprogressvol2 = volProgress.offsetHeight - numberprogressvol1
+        if (this.volIsDrag && numberprogressvol2 >= 0 && numberprogressvol2 < max) {
+            const heightprogress = volProgress.offsetHeight;
+            percentprogress = Math.floor(numberprogressvol2 / heightprogress * 100)
+            volProgressBar.style.height = percentprogress + "%";
+            audio.volume = percentprogress / 100;
+        }
+    },
+
+    volumeChangeHandle: function () {
+        const volumePercent = Math.floor(audio.volume * 100)
+        
+        if (volumePercent <= 30 && volumePercent > 0) {
+            this.onVol = 0
+            this.volchange0()
+        } else if (volumePercent > 30 && volumePercent < 80) {
+            this.onVol = 1
+            this.volchange1()
+        } else if (volumePercent === 0) {
+            this.volmute()
+        } else {
+            this.onVol = 2
+            this.volchange2()
+        }
     },
 
     start: function () {

@@ -224,6 +224,10 @@ html {
     color: pink !important;
 }
 
+.bx-menu.active {
+    color: pink !important;
+}
+
 .volbar {
     width: 6px;
     height: 68px;
