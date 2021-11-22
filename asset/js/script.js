@@ -19,6 +19,16 @@ const songFullTime = $('.song-time')
 const repeatBtn = $('.repeat')
 const shuffleBtn = $('.shuffle')
 const bg = $('.wide')
+const itemMusic = $('.play-list-item')
+const notmute = $$('.notmute')
+const mute = $('.bx-volume-mute')
+const vol = $$('.vol')
+const vol0 = $('.bx-volume')
+const vol1 = $('.bx-volume-low')
+const vol2 = $('.bx-volume-full')
+const volProgress = $('.volbar')
+const volProgressBar = $('.volbar-progress')
+const volDot = $('.volbar-dot')
 
 const app = {
     isPlaying: false,
@@ -27,8 +37,10 @@ const app = {
     isRandom: false,
     isRepeat: false,
     listshow: false,
-    songs: [
-        {
+    isMuted: false,
+    onVol: 2,
+    volIsDrag: false,
+    songs: [{
             name: 'Cơn gió mùa hạ',
             singer: 'Superluckyqi',
             path: './asset/music/song1.mp3',
@@ -108,7 +120,7 @@ const app = {
         }
     ],
 
-    render: function() {
+    render: function () {
         const htmls = this.songs.map(song => {
             return `
             <li class="play-list-item">
@@ -125,115 +137,132 @@ const app = {
         playlist.innerHTML = htmls.join('');
     },
 
-    definedProperties: function() {
+    definedProperties: function () {
         Object.defineProperty(this, 'currentSong', {
-            get: function() {
+            get: function () {
                 return this.songs[this.currentIndex];
-            } 
+            }
         })
     },
 
-    loadCurrentSong: function() {
+    loadCurrentSong: function () {
         songName.textContent = this.currentSong.name;
         songArtist.textContent = this.currentSong.singer;
         bg.style.backgroundImage = `url(${this.currentSong.image})`
         audio.src = this.currentSong.path;
     },
 
-    handleEvents: function() {
+    handleEvents: function () {
         that = this;
-        menu.onclick = function() {
+        menu.onclick = function () {
             if (this.listshow) {
                 control.classList.remove('active')
                 this.listshow = false
-            }
-            else {
+            } else {
                 control.classList.add('active')
                 this.listshow = true
             }
         }
 
-        playBtn.onclick = function() {
+        playBtn.onclick = function () {
             if (app.isPlaying) {
                 audio.pause()
-            }
-            else {
+            } else {
                 audio.play()
             }
         }
 
-        pauseBtn.onclick = function() {
+        pauseBtn.onclick = function () {
             if (app.isPlaying) {
                 audio.pause()
-            }
-            else {
+            } else {
                 audio.play()
             }
         }
 
-        audio.onplay = function() {
+        document.addEventListener('keyup', event => {
+            if (event.code === 'Space' || event.code === 'KeyK') {
+                playBtn.click()
+            }
+        })
+
+        audio.onplay = function () {
             app.handleTime();
             playBtn.classList.add("hide");
             pauseBtn.classList.remove("hide");
             that.isPlaying = true;
         }
 
-        audio.onpause = function() {
+        audio.onpause = function () {
             pauseBtn.classList.add("hide");
             playBtn.classList.remove("hide");
-            that.isPlaying = false;  
+            that.isPlaying = false;
         }
 
 
-        nextBtn.onclick = function() {
+        nextBtn.onclick = function () {
             if (that.isRandom) {
                 app.shuffleHandler();
                 audio.play();
-            }
-            else {
+            } else {
                 app.nextSong();
                 audio.play();
             }
-            
+
         }
 
-        prevBtn.onclick = function() {
-            if (that.isRandom) {
+        // bam shift + N
+        document.addEventListener('keyup', event => {
+            if (event.code === 'KeyN' && event.shiftKey) {
                 nextBtn.click();
             }
-            else {
+        })
+
+        prevBtn.onclick = function () {
+            if (that.isRandom) {
+                nextBtn.click();
+            } else {
                 app.prevSong();
                 audio.play();
             }
         }
 
-        audio.onended = function() {
+        // bam shift + P
+        document.addEventListener('keyup', event => {
+            if (event.code === 'KeyP' && event.shiftKey) {
+                prevBtn.click();
+            }
+        })
+
+        audio.onended = function () {
             if (that.isRepeat) {
                 audio.play();
-            }
-            else {
+            } else {
                 nextBtn.click();
             }
         }
 
-        repeatBtn.onclick = function() {
+        repeatBtn.onclick = function () {
             if (that.isRepeat) {
                 that.isRepeat = false;
                 repeatBtn.classList.remove('active');
-            }
-            else {
+            } else {
                 that.isRepeat = true;
                 repeatBtn.classList.add('active');
             }
         }
 
-        // xu ly an shuffle 
-        shuffleBtn.onclick = function() {
-            that.isRandom = !that.isRandom; 
+        shuffleBtn.onclick = function () {
+            that.isRandom = !that.isRandom;
             shuffleBtn.classList.toggle('active', that.isRandom);
         }
 
-        // xu li thanh progress
+        if (itemMusic) {
+            itemMusic.addEventListener('click', (e) => {
+                console.log(e)
+            })
+        }
+
         progress.addEventListener('mousedown', () => {
             that.isDrag = true;
             circle.classList.add('dragging');
@@ -248,18 +277,126 @@ const app = {
             circle.classList.remove('dragging');
         })
 
+        // bam mui ten
+        document.addEventListener('keydown', event => {
+            if (event.code === 'ArrowRight') {
+                audio.currentTime += 5
+                if (!that.isPlaying) {
+                    audio.pause()
+                }
+            }
+        })
+
+        document.addEventListener('keydown', event => {
+            if (event.code === 'ArrowLeft') {
+                audio.currentTime -= 5
+                if (!that.isPlaying) {
+                    audio.pause()
+                }
+            }
+        })
+
+        // tua 10s
+        document.addEventListener('keydown', event => {
+            if (event.code === 'KeyL') {
+                audio.currentTime += 10
+                if (!that.isPlaying) {
+                    audio.pause()
+                }
+            }
+        })
+
+        document.addEventListener('keydown', event => {
+            if (event.code === 'KeyJ') {
+                audio.currentTime -= 10
+                if (!that.isPlaying) {
+                    audio.pause()
+                }
+            }
+        })
+
+        // mo menu
+        document.addEventListener('keydown', event => {
+            if (event.code === 'KeyC') {
+                menu.click()
+            }
+        })
+
+        window.onload = () => {
+            console.log('afd')
+            setTimeout(() => {
+                playBtn.click()
+                setTimeout(() => audio.pause(), 100)
+            }, 500)
+        }
+
+        // handle volume change
+        audio.onvolumechange = () => {
+            const volumePercent = Math.floor(audio.volume * 100)
+            if (volumePercent <= 30 && volumePercent > 0) {
+                this.onVol = 0
+                this.volchange0()
+            } else if (volumePercent > 30 && volumePercent < 80) {
+                this.onVol = 1
+                this.volchange1()
+            } else if (volumePercent === 0) {
+                this.volmute()
+            } else {
+                this.onVol = 2
+                this.volchange2()
+            }
+        }
+
+        // hover 
+        for (var i = 0; i < 4; i++) {
+            vol[i].onmouseover = () => {
+                volProgress.classList.remove('hide')
+            }
+        }
+
+        for (var i = 0; i < 4; i++) {
+            vol[i].onmouseout = () => {
+                volProgress.classList.add('hide')
+            }
+        }
+
+        volProgress.onmouseover = () => volProgress.classList.remove('hide')
+        volProgress.onmouseout = () => volProgress.classList.add('hide')
+
+        // xu li drag
+        volProgress.addEventListener('mousedown', () => {
+            this.volIsDrag = true;
+            volDot.classList.add('dragging');
+        })
+
+        document.addEventListener("mousemove", (e) => {
+            const max = volProgress.getBoundingClientRect().top + volProgress.offsetHeight
+            let numberprogressvol1 = e.clientY - volProgress.getBoundingClientRect().top
+            let numberprogressvol2 = volProgress.offsetHeight - numberprogressvol1
+            if (this.volIsDrag && numberprogressvol2 >= 0 && numberprogressvol2 < max) {
+                const heightprogress = volProgress.offsetHeight;
+                percentprogress = Math.floor(numberprogressvol2 / heightprogress * 100)
+                volProgressBar.style.height = percentprogress + "%";
+                audio.volume = percentprogress / 100;
+            }
+        })
+
+        document.addEventListener('mouseup', (e) => {
+            this.volIsDrag = false;
+            volDot.classList.remove('dragging');
+        })
     },
-    getCurrentTime: function(seconds) {
+    getCurrentTime: function (seconds) {
         const format = val => `0${Math.floor(val)}`.slice(-2)
         const minutes = (seconds % 3600) / 60
 
         return [minutes, seconds % 60].map(format).join(':')
     },
 
-    handleTime: function() {
-        audio.ontimeupdate = function(e) {
+    handleTime: function () {
+        audio.ontimeupdate = function (e) {
             const seconds = e.target.currentTime
-            const secondsFormat = Math.floor(seconds * 100/100);
+            const secondsFormat = Math.floor(seconds * 100 / 100);
             songTime.innerHTML = `${app.getCurrentTime(secondsFormat)}`;
             songFullTime.innerHTML = `${app.getCurrentTime(Math.floor(audio.duration))}`;
             let timePercent = Math.floor(audio.currentTime / audio.duration * 100);
@@ -267,7 +404,7 @@ const app = {
         }
     },
 
-    nextSong: function() {
+    nextSong: function () {
         this.currentIndex++;
         if (this.currentIndex >= this.songs.length) {
             this.currentIndex = 0;
@@ -275,7 +412,7 @@ const app = {
         this.loadCurrentSong()
     },
 
-    prevSong: function() {
+    prevSong: function () {
         this.currentIndex--;
         if (this.currentIndex < 0) {
             this.currentIndex = this.songs.length - 1;
@@ -283,7 +420,7 @@ const app = {
         this.loadCurrentSong()
     },
 
-    progresshandle: function(e) {
+    progresshandle: function (e) {
         const widthprogress = progress.getBoundingClientRect().width;
         const max = progress.getBoundingClientRect().left + widthprogress;
         let numberprogress = e.clientX - progress.getBoundingClientRect().left;
@@ -296,16 +433,41 @@ const app = {
         }
     },
 
-    shuffleHandler: function() {
+    shuffleHandler: function () {
         let newIndex;
         do {
             newIndex = Math.floor(Math.random() * this.songs.length);
-        } while(newIndex == this.currentIndex);
+        } while (newIndex == this.currentIndex);
         this.currentIndex = newIndex;
         this.loadCurrentSong();
     },
 
-    start: function() {
+    volchange0: function () {
+        vol0.classList.remove('hide')
+        vol1.classList.add('hide')
+        vol2.classList.add('hide')
+        mute.classList.add('hide')
+    },
+    volchange1: function () {
+        vol1.classList.remove('hide')
+        vol0.classList.add('hide')
+        vol2.classList.add('hide')
+        mute.classList.add('hide')
+    },
+    volchange2: function () {
+        vol2.classList.remove('hide')
+        vol1.classList.add('hide')
+        vol0.classList.add('hide')
+        mute.classList.add('hide')
+    },
+    volmute: function () {
+        vol2.classList.add('hide')
+        vol1.classList.add('hide')
+        vol0.classList.add('hide')
+        mute.classList.remove('hide')
+    },
+
+    start: function () {
         this.definedProperties();
 
         this.handleEvents();

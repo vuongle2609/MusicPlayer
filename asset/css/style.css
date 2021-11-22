@@ -171,6 +171,10 @@ html {
     align-items: center;
 }
 
+.play-list-item:hover .play-list-item__name{
+    color: pink;
+}
+
 .play-list-item:last-child {
     border: none;
 }
@@ -220,12 +224,54 @@ html {
     color: pink !important;
 }
 
+.volbar {
+    width: 6px;
+    height: 68px;
+    background-color: white;
+    position: absolute;
+    bottom: 55%;
+    left: calc(11% + 1px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
 
+.volbar::after {
+    content: '';
+    width: 24px;
+    height: 130%;
+    position: absolute;
+    top: -15%;
+    left: -9px;
+}
 
+.vol::after {
+    content: '';
+    width: 30px;
+    height: 106%;
+    position: absolute;
+    top: -10%;
+    left: 3px;
+}
 
+.volbar-progress {
+    width: 100%;
+    height: 100%;
+    background-color: pink;
+}
 
+.volbar-dot {
+    width: 100%;
+    height: 5%;
+    background-color: rgb(88, 84, 84);
+    position: relative;
+    top: 0px;
+    display: none;
+}
 
-
+.volbar-dot.dragging {
+    display: block;
+}
 
 
 
