@@ -5,5 +5,6 @@ shift P - bài trước
 space/K - pause hoặc play
 R - lặp
 mũi tên trái phải - tua 5s
+L/J - tua 10s
 mũi tên lên xuống - chỉnh âm lượng
 M - mute

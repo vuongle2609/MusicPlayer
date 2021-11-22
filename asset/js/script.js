@@ -333,7 +333,7 @@ const app = {
             }, 1000)
         }
 
-        // mute phim m
+        // mute handle
         document.addEventListener('keydown', event => {
             if (event.code === 'KeyM') {
                 if (this.isMuted) {
@@ -346,6 +346,19 @@ const app = {
                 }
             }
         })
+
+        mute.onclick = () => {
+            audio.volume = this.currentVol
+            this.isMuted = false
+        }
+
+        for (var i = 0; i < 3; i++) {
+            notmute[i].onclick = () => {
+                this.currentVol = audio.volume
+                audio.volume = 0
+                this.isMuted = true
+            }
+        }
 
         // phim r
         document.addEventListener('keydown', event => {
@@ -507,7 +520,7 @@ const app = {
 
     volumeChangeHandle: function () {
         const volumePercent = Math.floor(audio.volume * 100)
-        
+
         if (volumePercent <= 30 && volumePercent > 0) {
             this.onVol = 0
             this.volchange0()
