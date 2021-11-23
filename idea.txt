@@ -1,3 +1,0 @@
-hàm onchange
-volume * 100
-hàm thay đổi(số % volume)
