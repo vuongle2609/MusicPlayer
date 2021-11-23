@@ -45,79 +45,79 @@ const app = {
             name: 'Cơn gió mùa hạ',
             singer: 'Superluckyqi',
             path: './asset/music/song1.mp3',
-            image: './asset/img/song1.png'
+            image: './asset/img/pc/song1.png'
         },
         {
             name: 'Trạm khí tượng',
             singer: 'Uu',
             path: './asset/music/song2.mp3',
-            image: './asset/img/song2.png'
+            image: './asset/img/pc/song2.png'
         },
         {
             name: 'Anh Nơi Xa Xôi',
             singer: 'Hoa Đồng',
             path: './asset/music/song3.mp3',
-            image: './asset/img/song3.png'
+            image: './asset/img/pc/song3.png'
         },
         {
             name: 'Một triệu khả năng',
             singer: '克丽丝叮',
             path: './asset/music/song4.mp3',
-            image: './asset/img/song4.png'
+            image: './asset/img/pc/song4.png'
         },
         {
             name: 'Em Cứ Nghĩ',
             singer: 'Từ Vi',
             path: './asset/music/song5.mp3',
-            image: './asset/img/song5.png'
+            image: './asset/img/pc/song5.png'
         },
         {
             name: 'Rất muốn bên cạnh anh',
             singer: 'Lưu tăng đồng',
             path: './asset/music/song6.mp3',
-            image: './asset/img/song6.png'
+            image: './asset/img/pc/song6.png'
         },
         {
             name: 'Anh, có ổn không',
             singer: 'Lữ Khẩu Khẩu',
             path: './asset/music/song7.mp3',
-            image: './asset/img/song7.png'
+            image: './asset/img/pc/song7.png'
         },
         {
             name: 'Chỉ vì quá yêu anh',
             singer: 'Đinh Phù Ny',
             path: './asset/music/song8.mp3',
-            image: './asset/img/song8.png'
+            image: './asset/img/pc/song8.png'
         },
         {
             name: 'Những năm tháng ấy',
             singer: 'Uu',
             path: './asset/music/song9.mp3',
-            image: './asset/img/song9.png'
+            image: './asset/img/pc/song9.png'
         },
         {
             name: 'Trạm khí tượng',
             singer: 'Uu',
             path: './asset/music/song10.mp3',
-            image: './asset/img/song10.png'
+            image: './asset/img/pc/song10.png'
         },
         {
             name: 'Cơn Gió Mùa Hạ',
             singer: 'Tàu Lửa Ngủ Gật',
             path: './asset/music/song11.mp3',
-            image: './asset/img/song11.png'
+            image: './asset/img/pc/song11.png'
         },
         {
             name: 'Vạn Vật Hấp Dẫn',
             singer: 'F*yy',
             path: './asset/music/song12.mp3',
-            image: './asset/img/song12.png'
+            image: './asset/img/pc/song13.png'
         },
         {
             name: 'Đều Trách Tại Em',
             singer: 'Hồ 66',
             path: './asset/music/song13.mp3',
-            image: './asset/img/song13.png'
+            image: './asset/img/pc/song12.png'
         }
     ],
 
@@ -390,6 +390,7 @@ const app = {
         // handle volume change
         audio.onvolumechange = () => {
             this.volumeChangeHandle()
+            volProgressBar.style.height = audio.volume * 100 + "%"
         }
 
         // hover 
