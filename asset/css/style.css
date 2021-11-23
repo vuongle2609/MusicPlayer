@@ -36,6 +36,7 @@ html {
     width: 100%;
     height: 100vh;
     position: relative;
+    overflow: hidden;
 }
 
 .name-display {
@@ -59,7 +60,6 @@ html {
     transition: all 0.5s ease;
     display: flex;
     justify-content: center;
-    overflow: hidden;
 }
 
 .downbar.active {
@@ -250,8 +250,8 @@ html {
     height: 68px;
     background-color: white;
     position: absolute;
-    bottom: 55%;
-    left: calc(11% + 6px);
+    bottom: 78%;
+    left: calc(11% + 3px);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
