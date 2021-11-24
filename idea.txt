@@ -1,3 +1,1 @@
-hàm onchange
-volume * 100
-hàm thay đổi(số % volume)
+thêm nút số chỉnh phần trăm nhạc

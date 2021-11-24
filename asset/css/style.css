@@ -255,6 +255,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    box-shadow: 1px -3px 6px #7f7c7c;
 }
 
 .volbar::after {

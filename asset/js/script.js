@@ -374,6 +374,16 @@ const app = {
             }
         })
 
+        // music numpad
+        document.addEventListener('keydown', event => {
+            for (var i = 0; i < 10; i++) {
+                if (event.code === `Digit${i}` || event.code === `Numpad${i}`) {
+                    const numberPercent = i * 10
+                    audio.currentTime = numberPercent / 100 * audio.duration
+                }
+            }
+        })
+
         // chinh am thanh phim mui ten
         document.addEventListener('keydown', event => {
             if (event.code === 'ArrowUp') {
