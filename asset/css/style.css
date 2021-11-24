@@ -295,10 +295,77 @@ html {
     display: block;
 }
 
+.filter {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(0 0 0 / 70%);
+    display: flex;
+    animation: filter 0.2s linear;
+    z-index: 2;
+}
 
+.log {
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    background-color: #e4e4e4d6;
+    border-radius: 15px;
+}
 
+.log-label {
+    text-align: center;
+    font-family: 'Itim', cursive;
+    font-size: 3.3rem;
+    padding: 0 30px;
+}
 
+.log-list {
+    padding: 0 0 10px 0;
+    list-style: none;
+    margin-left: 30px;
+}
 
+.log-item {
+    font-family: 'Itim', cursive;
+    margin: 5px 0;
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+.menu-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.644), rgba(0, 0, 0, 0.582));
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.menu-icon:hover {
+    cursor: pointer;
+}
+
+.menu-icon {
+    color: #fff;
+    font-size: 2rem;
+}
+
+@keyframes filter {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 @media screen and (min-width: 768px) and (max-width: 1919px) {
     

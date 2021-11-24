@@ -29,6 +29,8 @@ const vol2 = $('.bx-volume-full')
 const volProgress = $('.volbar')
 const volProgressBar = $('.volbar-progress')
 const volDot = $('.volbar-dot')
+const menuTopBtn = $('.menu-top')
+const filter = $('.filter')
 
 const app = {
     isPlaying: false,
@@ -278,6 +280,11 @@ const app = {
         document.addEventListener('mouseup', () => {
             that.isDrag = false;
             circle.classList.remove('dragging');
+        })
+
+        // menu filter
+        document.addEventListener('click', () => {
+            filter.classList.toggle('hide')
         })
 
         // bam mui ten tua
