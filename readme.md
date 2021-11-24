@@ -1,10 +1,10 @@
-C - mở playlist
-S - bật phát ngẫu nhiên
-shift N - bài kế tiếp
-shift P - bài trước
-space/K - pause hoặc play
-R - lặp
-mũi tên trái phải - tua 5s
-L/J - tua 10s
-mũi tên lên xuống - chỉnh âm lượng
-M - mute
+C - open playlist<br/>
+S - shuffle songs<br/>
+shift N - next song<br/>
+shift P - prev song<br/>
+space/K - pause/play<br/>
+R - loop<br/>
+L/R arrow - skip 5s<br/>
+L/J - skip 10s<br/>
+U/D arrow - volume adjust<br/>
+M - mute<br/>
