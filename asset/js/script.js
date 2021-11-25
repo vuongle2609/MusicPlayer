@@ -31,7 +31,9 @@ const volProgressBar = $('.volbar-progress')
 const volDot = $('.volbar-dot')
 const menuTopBtn = $('.menu-top')
 const filter = $('.filter')
+const filter1 = $('.filter1')
 const log = $('.log')
+const shareLabel = $('.share-label')
 
 const app = {
     isPlaying: false,
@@ -125,15 +127,15 @@ const app = {
     ],
 
     render: function () {
-        const htmls = this.songs.map(song => {
+        const htmls = this.songs.map((song, index) => {
             return `
-            <li class="play-list-item">
+            <li class="play-list-item" data-index="${index}">
                 <div class="play-list-box__title">
-                    <span class="play-list-item__name">${song.name}</span>
+                    <span class="play-list-item__name ${index === this.currentIndex ? 'active' : ''}">${song.name}</span>
                     <span class="play-list-item__artist">${song.singer}</span>
                 </div>
-                <i class='bx bx-heart'></i>
-                <i class='bx bx-dots-horizontal-rounded'></i>
+                <i class='bx bx-heart' data-index="${index}"></i>
+                <i class='bx bx-share share' data-index="${index}"></i>
             </li>
             `
         });
@@ -150,10 +152,10 @@ const app = {
     },
 
     loadCurrentSong: function () {
-        songName.textContent = this.currentSong.name;
-        songArtist.textContent = this.currentSong.singer;
+        songName.textContent = this.currentSong.name
+        songArtist.textContent = this.currentSong.singer
         bg.style.backgroundImage = `url(${this.currentSong.image})`
-        audio.src = this.currentSong.path;
+        audio.src = this.currentSong.path
     },
 
     handleEvents: function () {
@@ -210,9 +212,11 @@ const app = {
             if (that.isRandom) {
                 app.shuffleHandler();
                 audio.play();
+                app.render()
             } else {
                 app.nextSong();
                 audio.play();
+                app.render()
             }
 
         }
@@ -230,6 +234,7 @@ const app = {
             } else {
                 app.prevSong();
                 audio.play();
+                app.render()
             }
         }
 
@@ -380,14 +385,14 @@ const app = {
             }
         }
 
-        // phim r
+        // R key
         document.addEventListener('keydown', event => {
             if (event.code === 'KeyR') {
                 repeatBtn.click()
             }
         })
 
-        //phim s
+        // S key
         document.addEventListener('keydown', event => {
             if (event.code === 'KeyS') {
                 shuffleBtn.click()
@@ -404,7 +409,7 @@ const app = {
             }
         })
 
-        // chinh am thanh phim mui ten
+        // arrow volume
         document.addEventListener('keydown', event => {
             if (event.code === 'ArrowUp') {
                 audio.volume += 0.1
@@ -453,6 +458,36 @@ const app = {
             this.volIsDrag = false;
             volDot.classList.remove('dragging');
         })
+
+        // playlist handle
+        playlist.addEventListener('click', (e) => {
+            const songNode = e.target.closest('.play-list-item:not(.active)')
+            const shareNode = e.target.closest('.share')
+
+            if (songNode && shareNode === null) {
+                this.currentIndex = songNode.getAttribute('data-index')
+                this.loadCurrentSong()
+                audio.play()
+                app.render()
+                console.log('a')
+            }
+
+            if (shareNode) {
+                filter1.classList.toggle('active')
+                const songE = shareNode.getAttribute('data-index')
+                const songN = this.songs[songE].name
+                shareLabel.textContent = `share ${songN} with:`
+            }
+        })
+
+        // share filter handle
+        filter1.addEventListener('click', (e) => {
+            if (e.target.closest('.log1') === null) {
+                filter1.classList.toggle('active')
+            }
+        })
+
+        
     },
 
 
