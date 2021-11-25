@@ -354,8 +354,9 @@ const app = {
             console.log('afd')
             setTimeout(() => {
                 playBtn.click()
+                menuTopBtn.click()
                 setTimeout(() => audio.pause(), 100)
-            }, 1000)
+            }, 1500)
         }
 
         // mute handle
