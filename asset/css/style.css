@@ -22,12 +22,12 @@ html {
 
 .wide {
     display: flex;
-    
-    background-position:center;
+
+    background-position: center;
     background-size: cover;
     width: 100%;
     height: 100%;
-    background-repeat: no-repeat;   
+    background-repeat: no-repeat;
     background-attachment: center;
 }
 
@@ -46,7 +46,7 @@ html {
     position: absolute;
     left: 0;
     bottom: 0;
-    border-top-right-radius: 35px; 
+    border-top-right-radius: 35px;
 }
 
 .downbar {
@@ -56,7 +56,7 @@ html {
     position: absolute;
     right: 0;
     bottom: 0;
-    border-top-left-radius: 35px; 
+    border-top-left-radius: 35px;
     transition: all 0.5s ease;
     display: flex;
     justify-content: center;
@@ -76,6 +76,7 @@ html {
     top: 0px;
     justify-content: flex-end;
 }
+
 .nav__title {
     width: 100%;
     display: flex;
@@ -166,8 +167,10 @@ html {
     width: 80%;
     overflow: scroll;
     height: 500px;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .play-list-container::-webkit-scrollbar {
@@ -188,7 +191,7 @@ html {
     align-items: center;
 }
 
-.play-list-item:hover .play-list-item__name{
+.play-list-item:hover .play-list-item__name {
     color: pink;
 }
 
@@ -303,8 +306,16 @@ html {
     right: 0;
     background-color: rgb(0 0 0 / 70%);
     display: flex;
-    animation: filter 0.2s linear;
-    z-index: 2;
+    z-index: 1;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.1s linear;
+}
+
+.filter.active {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.1s, opacity 0.1s linear;
 }
 
 .log {
@@ -342,11 +353,11 @@ html {
     width: 30px;
     height: 30px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.644), rgba(0, 0, 0, 0.582));
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 .menu-icon:hover {
@@ -358,18 +369,27 @@ html {
     font-size: 2rem;
 }
 
-@keyframes filter {
-    0% {
+@keyframes filterIn {
+    from {
         opacity: 0;
     }
-    100% {
+
+    to {
         opacity: 1;
     }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1919px) {
-    
+@keyframes filterOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
+
+@media screen and (min-width: 768px) and (max-width: 1919px) {}
 
 @media screen and (max-width: 768px) {
     .wide {

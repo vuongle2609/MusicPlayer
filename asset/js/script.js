@@ -31,6 +31,7 @@ const volProgressBar = $('.volbar-progress')
 const volDot = $('.volbar-dot')
 const menuTopBtn = $('.menu-top')
 const filter = $('.filter')
+const log = $('.log')
 
 const app = {
     isPlaying: false,
@@ -283,8 +284,20 @@ const app = {
         })
 
         // menu filter
-        document.addEventListener('click', () => {
-            filter.classList.toggle('hide')
+        menuTopBtn.addEventListener('click', () => {
+            filter.classList.toggle('active')
+        })
+
+        document.addEventListener('keydown', event => {
+            if (event.code === 'KeyI') {
+                menuTopBtn.click()
+            }
+        })
+
+        filter.addEventListener('click', (e) => {
+            if (e.target.closest('.log') == null) {
+                menuTopBtn.click()
+            }
         })
 
         // bam mui ten tua
