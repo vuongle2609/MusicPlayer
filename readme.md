@@ -8,4 +8,4 @@ L/R arrow - skip 5s<br/>
 L/J - skip 10s<br/>
 U/D arrow - volume adjust<br/>
 M - mute<br/>
-1-10 - % thời gian
+1-10 - time adjust
